@@ -1,7 +1,5 @@
-package xyz.zpath.java.netty.xyz.zpath.java.netty.thread;
+package xyz.zpath.java.netty.thread;
 
-
-import java.util.ArrayList;
 
 /**
  * @author zhengfh
