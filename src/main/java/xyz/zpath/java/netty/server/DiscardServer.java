@@ -3,7 +3,7 @@
  *
  * @author zhengfh
  **/
-package xyz.zpath.java.netty;
+package xyz.zpath.java.netty.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
