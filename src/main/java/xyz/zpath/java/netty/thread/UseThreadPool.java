@@ -3,9 +3,7 @@
  *
  * @author zhengfh
  **/
-package xyz.zpath.java.netty.xyz.zpath.java.netty.thread;
-
-import javax.jws.soap.SOAPBinding;
+package xyz.zpath.java.netty.thread;
 
 /**
  * @author zhengfh

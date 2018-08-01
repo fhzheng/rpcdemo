@@ -3,7 +3,7 @@
  *
  * @author zhengfh
  **/
-package xyz.zpath.java.netty.xyz.zpath.java.netty.thread;
+package xyz.zpath.java.netty.thread;
 
 /**
  * @author zhengfh
