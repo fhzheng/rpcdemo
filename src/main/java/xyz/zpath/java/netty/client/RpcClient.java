@@ -2,6 +2,7 @@ package xyz.zpath.java.netty.client;
 
 
 import xyz.zpath.java.rpc.protobuf.Client;
+import xyz.zpath.java.rpc.protobuf.RpcNode;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,11 +13,12 @@ import xyz.zpath.java.rpc.protobuf.Client;
  */
 public class RpcClient {
     public static void main(String[] args) {
-        Client.Person person = Client.Person.newBuilder()
+        RpcNode.Caller caller = RpcNode.Caller.newBuilder()
                 .setId(1)
-                .setEmail("mtdwss@gmail.com")
-                .setName("zhengfh")
-                .build();
-        System.out.println(person);
+                .setMethod("getUserInfo")
+                .setParamter("1234567788").build();
+        int serializedSize = caller.getSerializedSize();
+        System.out.println(caller);
+        System.out.println(serializedSize);
     }
 }

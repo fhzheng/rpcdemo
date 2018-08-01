@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_package = "xyz.zpath.java.rpc.protobuf";
+option java_outer_classname = "RpcNode";
+message Caller {
+    int32 id = 1;
+    string class = 2;
+    string method = 3;
+    string paramter = 4;
+}
