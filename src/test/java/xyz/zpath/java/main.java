@@ -5,9 +5,10 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
-import xyz.zpath.java.rpc.protobuf.RpcNode;
+//import xyz.zpath.java.rpc.protobuf.RpcNode;
 
 import java.util.Set;
+import io.grpc.stub.StreamObserver;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,20 +19,8 @@ import java.util.Set;
  */
 public class main {
 
-    public static void main(String[] args) {
-//        RpcNode.Caller caller = RpcNode.Caller.newBuilder()
-//                .setId(1)
-//                .setMethod("getUserInfo")
-//                .setParamter("1234567788").build();
-//        int serializedSize = caller.getSerializedSize();
-//        System.out.println(caller);
-//        System.out.println(serializedSize);
-        Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forPackage("java.lang"))
-                .setScanners(new SubTypesScanner(),
-                        new TypeAnnotationsScanner())
-        );
-        Set<Class<?>> subTypesOf = reflections.getSubTypesOf(Object.class);
-        System.out.println(subTypesOf);
+    public static void main(String[] args){
+//        GetMessage
     }
+//    class MessageService extends MessageServiceRpc
 }

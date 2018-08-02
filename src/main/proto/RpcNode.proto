@@ -1,9 +1,15 @@
 syntax = "proto3";
 option java_package = "xyz.zpath.java.rpc.protobuf";
 option java_outer_classname = "RpcNode";
-message Caller {
+message MessageRequest {
     int32 id = 1;
-    string class = 2;
-    string method = 3;
-    string paramter = 4;
+}
+message MessageResult {
+    int32 id = 1;
+    string msg = 2;
+    string sender = 3;
+    string receiver = 4;
+}
+service MessageService {
+    rpc GetMessage (MessageRequest) returns (stream MessageResult);
 }

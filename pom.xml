@@ -15,7 +15,7 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.0.9.Final</version>
+            <version>4.1.27.Final</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
@@ -38,19 +38,19 @@
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty</artifactId>
             <version>${grpc.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-protobuf</artifactId>
             <version>${grpc.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-stub</artifactId>
             <version>${grpc.version}</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <!--protobuf end-->
         <dependency>

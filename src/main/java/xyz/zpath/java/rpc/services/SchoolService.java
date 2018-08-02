@@ -1,4 +1,4 @@
-package xya.zpath.java.services;
+package xyz.zpath.java.rpc.services;
 
 /**
  * Created by IntelliJ IDEA.

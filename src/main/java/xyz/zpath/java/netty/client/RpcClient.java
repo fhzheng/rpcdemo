@@ -3,7 +3,7 @@ package xyz.zpath.java.netty.client;
 
 import org.reflections.Reflections;
 import xyz.zpath.java.rpc.protobuf.Client;
-import xyz.zpath.java.rpc.protobuf.RpcNode;
+//import xyz.zpath.java.rpc.protobuf.RpcNode;
 
 import java.util.Set;
 
