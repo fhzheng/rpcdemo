@@ -8,9 +8,15 @@ package xyz.zpath.java.rpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
+import xyz.zpath.java.rpc.protobuf.ClassServiceGrpc;
 import xyz.zpath.java.rpc.protobuf.MessageServiceGrpc;
 import xyz.zpath.java.rpc.protobuf.RpcNode;
+import xyz.zpath.java.utils.Callback;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,38 +26,50 @@ import java.util.concurrent.TimeUnit;
 public class Client {
     private static int port = 8879;
 
-    public static void main(String[] args) throws InterruptedException {
-        if (args.length > 0) {
-            port = Integer.parseInt(args[0]);
-        }
+    public Client(final Callback callback) throws InterruptedException {
         final ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:" + port)
                 .usePlaintext()
                 .build();
-        MessageServiceGrpc.MessageServiceStub stub = MessageServiceGrpc.newStub(channel);
-        for (int i = 0; i < 100; i++) {
+        ClassServiceGrpc.ClassServiceStub stub = ClassServiceGrpc.newStub(channel);
+        RpcNode.ClassRequest request = RpcNode.ClassRequest.newBuilder()
+                .setId(1)
+                .build();
+        stub.getClass(request, new StreamObserver<RpcNode.ClassResult>() {
+            @Override
+            public void onNext(RpcNode.ClassResult classResult) {
+                callback.success(classResult);
+            }
 
-            RpcNode.MessageRequest request = RpcNode.MessageRequest.newBuilder()
-                    .setId(i)
-                    .build();
-            final int finalI = i;
-            stub.getMessage(request, new StreamObserver<RpcNode.MessageResult>() {
-                @Override
-                public void onNext(RpcNode.MessageResult messageResult) {
-                    System.out.println(messageResult);
-                }
+            @Override
+            public void onError(Throwable throwable) {
+                callback.error(throwable);
+            }
 
-                @Override
-                public void onError(Throwable throwable) {
-                    throwable.printStackTrace();
-                }
-
-                @Override
-                public void onCompleted() {
-                    System.out.println(finalI + " completed");
-                    channel.shutdownNow();
-                }
-            });
-        }
+            @Override
+            public void onCompleted() {
+                channel.shutdownNow();
+                callback.completed();
+            }
+        });
         channel.awaitTermination(1000000, TimeUnit.MILLISECONDS);
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        new Client(new Callback() {
+            @Override
+            public void success(Object result) {
+                System.out.println(result);
+            }
+
+            @Override
+            public void error(Throwable throwable) {
+                throwable.printStackTrace();
+            }
+
+            @Override
+            public void completed() {
+                System.out.println("completed");
+            }
+        });
     }
 }

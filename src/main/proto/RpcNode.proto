@@ -10,6 +10,39 @@ message MessageResult {
     string sender = 3;
     string receiver = 4;
 }
+message UserRequest {
+    string name = 1;
+}
+message UserResult {
+    int32 id = 1;
+    string name = 2;
+    int32 age = 3;
+    string address = 4;
+}
+message SchoolRequest {
+    int32 id = 1;
+}
+message SchoolResult {
+    int32 id = 1;
+    string name = 2;
+    string address = 3;
+}
+message ClassRequest {
+    int32 id = 1;
+}
+message ClassResult {
+    int32 id = 1;
+    string name = 2;
+}
 service MessageService {
     rpc GetMessage (MessageRequest) returns (stream MessageResult);
+}
+service UserService {
+    rpc getUser (UserRequest) returns (stream UserResult);
+}
+service SchoolService {
+    rpc getSchool (SchoolRequest) returns (stream SchoolResult);
+}
+service ClassService {
+    rpc getClass (ClassRequest) returns (stream ClassResult);
 }
