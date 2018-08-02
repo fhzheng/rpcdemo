@@ -34,15 +34,26 @@ message ClassResult {
     int32 id = 1;
     string name = 2;
 }
+message BlobRequest {
+    int32 id = 1;
+}
+message BlobFrame {
+    int32 id = 1;
+    bytes content = 2;
+    int32 size = 3;
+}
 service MessageService {
-    rpc GetMessage (MessageRequest) returns (stream MessageResult);
+    rpc GetMessage (MessageRequest) returns (MessageResult);
 }
 service UserService {
-    rpc getUser (UserRequest) returns (stream UserResult);
+    rpc getUser (UserRequest) returns (UserResult);
 }
 service SchoolService {
-    rpc getSchool (SchoolRequest) returns (stream SchoolResult);
+    rpc getSchool (SchoolRequest) returns (SchoolResult);
 }
 service ClassService {
-    rpc getClass (ClassRequest) returns (stream ClassResult);
+    rpc getClass (ClassRequest) returns (ClassResult);
+}
+service BlobService {
+    rpc getBlob (BlobRequest) returns (stream BlobFrame);
 }

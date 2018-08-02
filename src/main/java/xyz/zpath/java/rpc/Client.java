@@ -16,6 +16,8 @@ import xyz.zpath.java.utils.Callback;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -23,10 +25,26 @@ import java.util.concurrent.TimeUnit;
  * @author zhengfh
  * @date 2018/8/2
  **/
-public class Client {
-    private static int port = 8879;
+public class Client extends Observable {
 
-    public Client(final Callback callback) throws InterruptedException {
+    private static int port = 8879;
+    private int state = 0;
+    private Object result = null;
+
+    public Object getResult() {
+        return result;
+    }
+
+    public void setResult(Object result) {
+        this.result = result;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void start() throws InterruptedException {
+
         final ManagedChannel channel = ManagedChannelBuilder.forTarget("localhost:" + port)
                 .usePlaintext()
                 .build();
@@ -37,25 +55,41 @@ public class Client {
         stub.getClass(request, new StreamObserver<RpcNode.ClassResult>() {
             @Override
             public void onNext(RpcNode.ClassResult classResult) {
-                callback.success(classResult);
+                setResult(classResult);
+                setChanged();
+                notifyObservers();
             }
 
             @Override
             public void onError(Throwable throwable) {
-                callback.error(throwable);
+                throwable.printStackTrace();
             }
 
             @Override
             public void onCompleted() {
-                channel.shutdownNow();
-                callback.completed();
             }
         });
         channel.awaitTermination(1000000, TimeUnit.MILLISECONDS);
     }
 
+    static class ClientObserver implements Observer {
+        private Callback callback;
+
+        @Override
+        public void update(Observable o, Object arg) {
+            this.callback.success(((Client) o).getResult());
+        }
+
+        ClientObserver(Observable observable, Callback callback) {
+            observable.addObserver(this);
+            this.callback = callback;
+        }
+
+    }
+
     public static void main(String[] args) throws InterruptedException {
-        new Client(new Callback() {
+        Client client = new Client();
+        new ClientObserver(client, new Callback() {
             @Override
             public void success(Object result) {
                 System.out.println(result);
@@ -63,13 +97,12 @@ public class Client {
 
             @Override
             public void error(Throwable throwable) {
-                throwable.printStackTrace();
             }
 
             @Override
             public void completed() {
-                System.out.println("completed");
             }
         });
+        client.start();
     }
 }
