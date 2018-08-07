@@ -14,5 +14,17 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface RpcService {
-    String name();
+    /**
+     * 服务接口名称
+     *
+     * @return
+     */
+    Class<?> value();
+
+    /**
+     * 服务版本
+     *
+     * @return
+     */
+    String version() default "";
 }
