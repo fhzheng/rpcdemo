@@ -16,10 +16,10 @@ import java.util.Arrays;
  * @date: 2018/8/2
  * @time: 22:10
  */
-@RpcService(name = "BlboService")
+@RpcService(value = BlobServiceGrpc.BlobServiceImplBase.class)
 public class BlobServiceImpl extends BlobServiceGrpc.BlobServiceImplBase {
     private static final int SIZE = 1024 * 5;
-    public static final String FILE_NAME = "test1.mp4";
+    public static final String FILE_NAME = "E:\\xn_source\\EDC3.5.1\\App.Search\\Public\\tech_video\\hljs\\01all.mp4";
 
     /**
      * @param request

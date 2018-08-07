@@ -36,15 +36,15 @@ public class Server {
         ServerBuilder serverBuilder = ServerBuilder.forPort(port);
         Reflections reflections = new Reflections(
                 new ConfigurationBuilder()
-                        .setUrls(ClasspathHelper.forPackage("xyz.zpath.java.rpc.services"))
+                        .setUrls(ClasspathHelper.forPackage("xyz.zpath.java.rpc.service"))
                         .setScanners(new SubTypesScanner(),
                                 new TypeAnnotationsScanner())
-                        .filterInputsBy(new FilterBuilder().includePackage("xyz.zpath.java.rpc.services"))
+                        .filterInputsBy(new FilterBuilder().includePackage("xyz.zpath.java.rpc.service"))
         );
         Set<Class<?>> typesAnnotatedWith = reflections.getTypesAnnotatedWith(RpcService.class);
         for (Class clazz : typesAnnotatedWith) {
             System.out.println(clazz.getSimpleName());
-            SERVICES.put(((RpcService)clazz.getAnnotation(RpcService.class)).name(), clazz);
+            SERVICES.put(((RpcService)clazz.getAnnotation(RpcService.class)).value().getName(), clazz);
             serverBuilder.addService((BindableService) clazz.newInstance());
         }
         System.out.println(SERVICES);

@@ -1,14 +1,19 @@
 syntax = "proto3";
 option java_package = "xyz.zpath.java.rpc.protobuf";
 option java_outer_classname = "RpcNode";
+option java_generic_services = true;
+import "google/protobuf/any.proto";
 message MessageRequest {
     int32 id = 1;
 }
+message BaseMessage {
+    int32 res = 1;
+}
 message MessageResult {
-    int32 id = 1;
-    string msg = 2;
-    string sender = 3;
-    string receiver = 4;
+    int32 id = 1001;
+    string msg = 1002;
+    string sender = 1003;
+    string receiver = 1004;
 }
 message UserRequest {
     string name = 1;
@@ -42,6 +47,15 @@ message BlobFrame {
     bytes content = 2;
     int32 size = 3;
 }
+message RpcRequest {
+    string serviceType = 1;
+    string serviceMethod = 2;
+    string requestType = 3;
+    google.protobuf.Any realRequest = 4;
+}
+message RpcResult {
+
+}
 service MessageService {
     rpc GetMessage (MessageRequest) returns (MessageResult);
 }
@@ -53,6 +67,7 @@ service SchoolService {
 }
 service ClassService {
     rpc getClass (ClassRequest) returns (ClassResult);
+    rpc deleteClass (ClassRequest) returns (ClassResult);
 }
 service BlobService {
     rpc getBlob (BlobRequest) returns (stream BlobFrame);

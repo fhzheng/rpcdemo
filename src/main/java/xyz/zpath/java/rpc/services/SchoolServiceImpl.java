@@ -12,7 +12,7 @@ import xyz.zpath.java.rpc.protobuf.SchoolServiceGrpc;
  * @date: 2018/8/1
  * @time: 23:19
  */
-@RpcService(name = "SchoolService")
+@RpcService(value = SchoolServiceGrpc.SchoolServiceImplBase.class)
 public class SchoolServiceImpl extends SchoolServiceGrpc.SchoolServiceImplBase {
     /**
      * @param request

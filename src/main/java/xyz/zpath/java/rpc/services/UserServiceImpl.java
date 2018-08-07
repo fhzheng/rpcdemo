@@ -12,7 +12,7 @@ import xyz.zpath.java.rpc.protobuf.UserServiceGrpc;
  * @date: 2018/8/1
  * @time: 23:19
  */
-@RpcService(name = "UserService")
+@RpcService(UserServiceGrpc.UserServiceImplBase.class)
 public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
     /**
      * @param request
