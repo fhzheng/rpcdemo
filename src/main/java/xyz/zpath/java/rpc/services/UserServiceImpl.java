@@ -12,7 +12,8 @@ import xyz.zpath.java.rpc.protobuf.UserServiceGrpc;
  * @date: 2018/8/1
  * @time: 23:19
  */
-@RpcService(UserServiceGrpc.UserServiceImplBase.class)
+@RpcService(value = UserServiceGrpc.UserServiceImplBase.class,
+        namespace = "UserSvc")
 public class UserServiceImpl extends UserServiceGrpc.UserServiceImplBase {
     /**
      * @param request

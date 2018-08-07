@@ -26,13 +26,14 @@ public class RpcServer {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap bootstrap = new ServerBootstrap();
+            final RpcServerHandler rpcServerHandler = new RpcServerHandler();
             bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             System.out.println(socketChannel.config());
-                            socketChannel.pipeline().addLast(new RpcServerHandler());
+                            socketChannel.pipeline().addLast(rpcServerHandler);
                         }
                     })
                     .option(ChannelOption.SO_BACKLOG, 128)

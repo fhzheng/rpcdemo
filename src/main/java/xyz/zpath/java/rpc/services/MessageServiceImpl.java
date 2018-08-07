@@ -17,7 +17,8 @@ import xyz.zpath.java.rpc.protobuf.RpcNode;
  * @author zhengfh
  * @date 2018/8/2
  **/
-@RpcService(value = MessageServiceGrpc.MessageServiceImplBase.class)
+@RpcService(value = MessageServiceGrpc.MessageServiceImplBase.class,
+        namespace = "MessageSvc")
 public class MessageServiceImpl implements RpcNode.MessageService.Interface {
     /**
      * <code>rpc GetMessage(.MessageRequest) returns (.MessageResult);</code>

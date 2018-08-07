@@ -22,6 +22,12 @@ public @interface RpcService {
     Class<?> value();
 
     /**
+     * 命名空间，默认根目录
+     * @return
+     */
+    String namespace();
+
+    /**
      * 服务版本
      *
      * @return

@@ -49,9 +49,10 @@ message BlobFrame {
 }
 message RpcRequest {
     string serviceType = 1;
-    string serviceMethod = 2;
-    string requestType = 3;
-    google.protobuf.Any realRequest = 4;
+    string namespace = 2;
+    string serviceMethod = 3;
+    string requestType = 4;
+    google.protobuf.Any realRequest = 5;
 }
 message RpcResult {
 

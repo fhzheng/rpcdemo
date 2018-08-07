@@ -19,7 +19,7 @@ import xyz.zpath.java.rpc.protobuf.RpcNode.ClassResult;
  * @author zhengfh
  * @date 2018/8/2
  **/
-@RpcService(value = ClassService.class)
+@RpcService(value = ClassService.class, namespace = "ClassSvc")
 public class ClassServiceImpl implements ClassService.BlockingInterface, ClassService.Interface {
     @Override
     public ClassResult getClass(RpcController controller, ClassRequest request) throws ServiceException {
